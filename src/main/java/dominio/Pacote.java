@@ -1,6 +1,7 @@
 package dominio;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +114,18 @@ public class Pacote implements Serializable {
 	
 	public void removeItem(Item x) {
 		this.itens.remove(x);
+	}
+	
+	public BigDecimal precoPasseios() {
+		return new BigDecimal(30);
+	}
+	
+	public BigDecimal precoTotal() {
+		BigDecimal total = new BigDecimal(0);
+		total = total.add(precoPasseios());
+		BigDecimal diarias = new BigDecimal(this.diarias);
+		total = total.add(diarias.multiply(hotel.getDiaria()));
+		return new BigDecimal(20);	
 	}
 	
 	@Override

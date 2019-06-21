@@ -14,10 +14,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="tb_contrato")
 public class Contrato implements Serializable{
-
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private static final long serialVersionUID = 1L;
 	private Integer codContrato;
 	private Date data;
 	

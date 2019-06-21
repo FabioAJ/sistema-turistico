@@ -17,23 +17,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name="tb_pacote")
 public class Pacote implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private static final long serialVersionUID = 1L;
 	private Integer codPacote;
 	private String nome;
 	private Integer diarias;
 	
 	@OneToMany(mappedBy="pacote")
-	private List<Contrato> contratos;
+	private List<Contrato> contratos = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name="hotel")
 	private Hotel hotel;
 	
 	@OneToMany(mappedBy="pacote")
-	private List<Item> itens;
+	private List<Item> itens = new ArrayList<>();
 	
 	public Pacote() {
 		super();

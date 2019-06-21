@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,19 +29,35 @@ public class Instanciacao extends HttpServlet {
 		try {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		Cliente jorge = new Cliente(1, "jorge", "jorge1@email.com", "(34) 190-190", "5242424-42", sdf.parse("11/11/1971"),
+		Cliente cl1 = new Cliente(null, "jorge", "jorge1@email.com", "(34) 190-190", "5242424-42", sdf.parse("11/11/1971"),
 				new BigDecimal("2000000.00"));
 		
-		Hotel h1 = new Hotel(1, "hotel1", "hongKong", new BigDecimal("2000.00"));
+		Hotel h1 = new Hotel(null, "hotel1", "hongKong", new BigDecimal("2000.00"));
 		
-		Pacote p1 = new Pacote(1, "pacote1", 3, h1);
+		Pacote p1 = new Pacote(null, "pacote1", 3, h1);
 		
-		Contrato c1 = new Contrato(1, sdf.parse("11/11/1971"), jorge, p1);
+		Contrato c1 = new Contrato(null, sdf.parse("11/11/1971"), cl1, p1);
 		
-		Passeio pa1 = new Passeio(1, "paraquedas", new BigDecimal("500.00"), "Chinginhog");
+		Passeio pa1 = new Passeio(null, "paraquedas", new BigDecimal("500.00"), "Chinginhog");
 		
-		Item i1 = new Item(1, 1, p1, pa1);
+		Item i1 = new Item(null, 1, p1, pa1);
 		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("meujpa");
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		
+		em.persist(cl1);
+		em.persist(h1);
+		em.persist(p1);
+		em.persist(c1);
+		em.persist(pa1);
+		em.persist(i1);
+		
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
 		response.getWriter().append("Funcionaste!");
 		
 		} catch (ParseException e) {

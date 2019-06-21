@@ -16,10 +16,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="tb_cliente")
 public class Cliente implements Serializable{
-
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private static final long serialVersionUID = 1L;
 	private Integer codCliente;
 	private String nome;
 	private String email;
@@ -29,7 +29,8 @@ public class Cliente implements Serializable{
 	private BigDecimal rendaMensal;
 	
 	@OneToMany(mappedBy="cliente")
-	private List<Contrato> contratos;
+	private List<Contrato> contratos = new ArrayList<>();
+	
 
 	public Cliente() {
 		super();

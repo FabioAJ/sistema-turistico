@@ -15,17 +15,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name="tb_passeio")
 public class Passeio implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private static final long serialVersionUID = 1L;
 	private Integer codPasseio;
 	private String nome;
 	private BigDecimal preco;
 	private String cidade;
 	
 	@OneToMany(mappedBy="passeio")
-	private List<Item> itens;
+	private List<Item> itens = new ArrayList<>();
 	
 	public Passeio() {
 		super();
